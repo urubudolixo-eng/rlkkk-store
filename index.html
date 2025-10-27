@@ -226,7 +226,7 @@
         <div id="home-section">
             <div class="about">
                 <h2>Sobre a RLKKK STORE</h2>
-                <p>A RLKKK STORE é o QG underground pra design, programação e edição de vídeo. Criamos logos que pegam fogo, sites que parecem saídos de um filme sci-fi e vídeos que vão fazer sua audiência perder o chão. Somos um time de criativos com vibe dark, entregando serviços premium desde 2025. Cola com a gente e transforma sua visão em realidade!</p>
+                <p>A RLKKK STORE é a base para criar design, programação e edição de vídeo. Criamos logos que pegam fogo, sites que parecem saídos de um filme sci-fi e vídeos que vão fazer sua audiência perder o chão. Somos um time de criativos com profissionais, entregando serviços premium desde 2025. Cola com a gente e transforma sua visão em realidade!</p>
             </div>
             <div class="contact">
                 <h3>Contato</h3>
@@ -403,7 +403,7 @@
                 loadFeedbacks();
                 showToast('Feedback editado com sucesso!');
             } else {
-                showToast('Nota inválida ou campos vazios, porra!');
+                showToast('Nota inválida ou campos vazios, irmão!');
             }
         }
 
@@ -431,9 +431,9 @@
                 updateNav();
                 loadVendors();
                 loadFeedbacks();
-                showToast(`Logado como ${username}! Bora dominar!`);
+                showToast(`Logado como ${username}! Bora reinar!`);
             } else {
-                showToast('Username ou senha errados, porra!');
+                showToast('Username ou senha errados, irmão!');
             }
         });
 
@@ -461,7 +461,7 @@
         document.querySelector('.feedback-form').addEventListener('submit', e => {
             e.preventDefault();
             if (!currentUser) {
-                showToast('Loga primeiro, caralho!');
+                showToast('Loga primeiro, irmão!');
                 return;
             }
             const vendor = document.getElementById('vendor').value;
