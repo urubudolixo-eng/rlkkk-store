@@ -3,140 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RLKKK STORE - Loja Dark de Elite</title>
+    <title>🔥 RLKKK STORE - Design & Code 🔥</title>
     <style>
-        /* Tema Dark Mode Completo */
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             color: #e0e0e0;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
         header {
-            background-color: #1e1e1e;
+            background: #111;
             padding: 20px;
             text-align: center;
-            border-bottom: 2px solid #333;
+            border-bottom: 3px solid #ff1a1a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
         h1 {
-            color: #ff6b6b;
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            color: #ff1a1a;
+            font-size: 3em;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px #ff1a1a, 0 0 30px #ff1a1a;
+            animation: glitch 2s linear infinite;
+        }
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
         }
         nav {
-            background-color: #2d2d2d;
-            padding: 10px;
-            text-align: center;
+            background: #0f0f0f;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         nav button {
-            background-color: #ff6b6b;
-            color: #121212;
+            background: linear-gradient(45deg, #ff1a1a, #ff6666);
+            color: #000;
             border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
+            padding: 12px 25px;
+            border-radius: 50px;
             cursor: pointer;
-            border-radius: 5px;
             font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         nav button:hover {
-            background-color: #ff5252;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #ff1a1a;
         }
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #151515;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9);
         }
-        .about {
+        .about, .portfolio, .feedback, .quote {
+            margin-bottom: 50px;
             text-align: center;
-            margin-bottom: 40px;
         }
-        .about p {
-            font-size: 1.2em;
-            color: #b0b0b0;
+        h2 {
+            color: #00b3b3;
+            font-size: 2.2em;
+            text-shadow: 0 0 10px #00b3b3;
         }
-        .contact {
-            background-color: #2d2d2d;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            text-align: center;
+        .about p, .contact p {
+            color: #a0a0a0;
+            font-size: 1.3em;
+            margin: 15px 0;
         }
         .contact a {
-            color: #ff6b6b;
+            color: #ff1a1a;
             text-decoration: none;
             font-weight: bold;
         }
         .contact a:hover {
             text-decoration: underline;
+            color: #ff6666;
         }
-        #login-form, #admin-panel {
-            max-width: 400px;
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        .portfolio-card {
+            background: #1f1f1f;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px #ff1a1a;
+        }
+        .portfolio-card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .portfolio-card a {
+            color: #ff1a1a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .quote-form, .feedback-form, .login-form, .admin-panel {
+            max-width: 500px;
             margin: 0 auto;
         }
-        input[type="text"], input[type="password"] {
+        input, textarea, select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
-            background-color: #333;
+            background: #222;
             color: #e0e0e0;
-            border: 1px solid #555;
-            border-radius: 5px;
+            border: 2px solid #ff1a1a;
+            border-radius: 15px;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #00b3b3;
+            outline: none;
         }
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #ff6b6b;
-            color: #121212;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff1a1a, #ff6666);
+            color: #000;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s;
         }
         button:hover {
-            background-color: #ff5252;
+            background: linear-gradient(45deg, #ff6666, #ff1a1a);
         }
-        .user-list {
-            margin-top: 20px;
+        .feedback-list .feedback-item {
+            background: #1f1f1f;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 6px solid #00b3b3;
         }
-        .user-item {
-            background-color: #2d2d2d;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
+        .stars {
+            color: #ffd700;
+            font-size: 1.3em;
+        }
+        .user-list .user-item {
+            background: #1f1f1f;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .role-select {
-            background-color: #333;
-            color: #e0e0e0;
-            border: 1px solid #555;
-            padding: 5px;
-            border-radius: 3px;
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff1a1a;
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1000;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader {
+            border: 6px solid #ff1a1a;
+            border-top: 6px solid #00b3b3;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .hidden {
             display: none;
         }
-        #welcome {
-            text-align: center;
-            color: #ff6b6b;
-            font-size: 1.5em;
+        @media (max-width: 600px) {
+            nav { flex-direction: column; }
+            h1 { font-size: 2.2em; }
+            .container { padding: 15px; }
+            .portfolio-card { margin: 0 10px; }
         }
     </style>
 </head>
 <body>
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+    </div>
     <header>
         <h1>🔥 RLKKK STORE 🔥</h1>
     </header>
     <nav>
         <button onclick="showSection('home')">Home</button>
         <button onclick="showSection('login')">Login</button>
+        <button onclick="showSection('feedback')">Feedback</button>
         <button id="admin-btn" onclick="showSection('admin')" class="hidden">Admin Panel</button>
         <button id="logout-btn" onclick="logout()" class="hidden">Logout</button>
     </nav>
@@ -146,19 +238,55 @@
         <div id="home-section">
             <div class="about">
                 <h2>Sobre a RLKKK STORE</h2>
-                <p>Seja Bem-Vindo a RLKKK STORE, aonde se acha produtos de programação, design e edição de vídeo, que pode ser de sites simples, até profissionais e complexos com login, tá esperando oque, seja comprador, ou seja um vendedor em nosso discord e ganhe dinheiro!</p>
+                <p>Seja bem-vindo à RLKKK STORE, o antro mais foda de design, programação e edição de vídeo. Criamos logos que explodem cabeças, sites que parecem saídos do futuro e vídeos que vão fazer seu público pirar. Somos especialistas em transformar ideias em obras-primas digitais. No mercado desde 2025, nossa equipe de designers, programadores e editores entrega serviços premium com uma pegada underground. Entre no jogo e deixe sua marca!</p>
             </div>
             <div class="contact">
                 <h3>Contato</h3>
                 <p>Email: <a href="mailto:urubudolixo@gmail.com">urubudolixo@gmail.com</a></p>
-                <p>Discord: <a href="https://discord.gg/7jcSDnpjkB" target="_blank">Junte-se ao nosso servidor!</a></p>
+                <p>Discord: <a href="https://discord.gg/7jcSDnpjkB" target="_blank">Junte-se ao servidor!</a></p>
+            </div>
+            <div class="portfolio">
+                <h2>Nosso Portfólio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card">
+                        <img src="https://via.placeholder.com/300x200?text=Logo+Dark" alt="Logo Design">
+                        <h3>Logo Cyberpunk</h3>
+                        <p>Design de logo para startups tech.</p>
+                        <a href="#">Ver Projeto</a>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://via.placeholder.com/300x200?text=Site+Pro" alt="Website">
+                        <h3>Site Interativo</h3>
+                        <p>Web app com UX/UI de ponta.</p>
+                        <a href="#">Ver Projeto</a>
+                    </div>
+                    <div class="portfolio-card">
+                        <img src="https://via.placeholder.com/300x200?text=Video+Edit" alt="Video Edit">
+                        <h3>Edição de Vídeo</h3>
+                        <p>Vídeo promocional com efeitos insanos.</p>
+                        <a href="#">Ver Projeto</a>
+                    </div>
+                </div>
+            </div>
+            <div class="quote">
+                <h2>Peça um Orçamento</h2>
+                <form class="quote-form">
+                    <input type="text" placeholder="Seu Nome" required>
+                    <input type="email" placeholder="Seu Email" required>
+                    <textarea placeholder="Descreva seu projeto..." rows="5" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+            <div class="feedback">
+                <h2>Feedback dos Nossos Vendedores</h2>
+                <div id="feedback-list" class="feedback-list"></div>
             </div>
         </div>
 
         <!-- Form de Login -->
         <div id="login-section" class="hidden">
             <h2>Login</h2>
-            <form id="login-form">
+            <form class="login-form">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="password" id="password" placeholder="Password" required>
                 <button type="submit">Entrar</button>
@@ -166,40 +294,111 @@
             <p id="welcome" class="hidden"></p>
         </div>
 
+        <!-- Form de Feedback -->
+        <div id="feedback-section" class="hidden">
+            <h2>Deixe seu Feedback</h2>
+            <form class="feedback-form">
+                <select id="vendor" required>
+                    <option value="">Selecione um Vendedor</option>
+                </select>
+                <select id="rating" required>
+                    <option value="1">1 ⭐</option>
+                    <option value="2">2 ⭐</option>
+                    <option value="3">3 ⭐</option>
+                    <option value="4">4 ⭐</option>
+                    <option value="5">5 ⭐</option>
+                </select>
+                <textarea id="comment" placeholder="Seu comentário..." rows="5" required></textarea>
+                <button type="submit">Enviar Feedback</button>
+            </form>
+        </div>
+
         <!-- Painel Admin -->
         <div id="admin-section" class="hidden">
-            <h2>Painel Admin - Gerencie Vendedores</h2>
-            <p>Adicione um novo usuário ou defina roles (user/vendedor).</p>
+            <h2>Painel Admin - Gerencie a Loja</h2>
+            <p>Adicione usuários ou defina roles (user/vendedor).</p>
             <input type="text" id="new-username" placeholder="Novo Username">
             <input type="password" id="new-password" placeholder="Senha pro Novo User">
             <button onclick="addUser()">Adicionar Usuário</button>
             <div class="user-list" id="user-list"></div>
+            <div class="feedback">
+                <h2>Feedbacks Recebidos</h2>
+                <div id="admin-feedback-list" class="feedback-list"></div>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Armazenamento de Contas (localStorage)
-        let currentUser = null;
-        const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' }; // Muda isso na real!
+    <div id="toast" class="toast"></div>
 
-        // Carrega users do localStorage
-        function loadUsers() {
-            const users = localStorage.getItem('rlkkkUsers');
-            return users ? JSON.parse(users) : [ADMIN_CREDENTIALS]; // Admin default
+    <!-- Simulação de users.json -->
+    <script type="application/json" id="users-json">
+        [
+            { "username": "admin", "password": "admin123", "role": "admin" }
+        ]
+    </script>
+
+    <script>
+        // Carrega users e feedbacks
+        let users = JSON.parse(document.getElementById('users-json').textContent);
+        let feedbacks = JSON.parse(localStorage.getItem('rlkkkFeedbacks')) || [];
+        let currentUser = null;
+        const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
+
+        // Loading
+        window.onload = () => setTimeout(() => document.getElementById('loading').classList.add('hidden'), 2000);
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
         }
 
-        // Salva users no localStorage
-        function saveUsers(users) {
+        // Salva users e feedbacks
+        function saveUsers() {
             localStorage.setItem('rlkkkUsers', JSON.stringify(users));
+        }
+        function saveFeedbacks() {
+            localStorage.setItem('rlkkkFeedbacks', JSON.stringify(feedbacks));
+        }
+
+        // Carrega vendedores pro feedback
+        function loadVendors() {
+            const vendorSelect = document.getElementById('vendor');
+            vendorSelect.innerHTML = '<option value="">Selecione um Vendedor</option>';
+            users.filter(u => u.role === 'vendedor').forEach(v => {
+                const option = document.createElement('option');
+                option.value = v.username;
+                option.textContent = v.username;
+                vendorSelect.appendChild(option);
+            });
+        }
+
+        // Carrega feedbacks
+        function loadFeedbacks() {
+            const feedbackList = document.getElementById('feedback-list');
+            const adminFeedbackList = document.getElementById('admin-feedback-list');
+            feedbackList.innerHTML = '';
+            adminFeedbackList.innerHTML = '';
+            feedbacks.forEach(f => {
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerHTML = `
+                    <p><strong>${f.vendor}</strong> (${'⭐'.repeat(f.rating)})</p>
+                    <p>${f.comment}</p>
+                    <p><small>Por: ${f.user}</small></p>
+                `;
+                if (f.rating >= 3) feedbackList.appendChild(div.cloneNode(true));
+                adminFeedbackList.appendChild(div);
+            });
         }
 
         // Login
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        document.querySelector('.login-form').addEventListener('submit', e => {
             e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const users = loadUsers();
-
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
                 currentUser = user;
@@ -207,99 +406,38 @@
                 document.getElementById('welcome').classList.remove('hidden');
                 showSection('home');
                 updateNav();
-                if (user.username === ADMIN_CREDENTIALS.username) {
-                    loadUserList();
-                }
+                loadVendors();
+                loadFeedbacks();
+                showToast(`Logado como ${username}! Prontos pra dominar!`);
             } else {
-                alert('Username ou senha errados, porra! Tenta de novo.');
+                showToast('Username ou senha errados, caralho!');
             }
         });
 
-        // Adicionar Novo Usuário (só admin)
-        function addUser() {
-            const newUsername = document.getElementById('new-username').value;
-            const newPassword = document.getElementById('new-password').value;
-            if (!newUsername || !newPassword) {
-                alert('Preenche essa merda direito!');
+        // Feedback
+        document.querySelector('.feedback-form').addEventListener('submit', e => {
+            e.preventDefault();
+            if (!currentUser) {
+                showToast('Loga primeiro, porra!');
                 return;
             }
-            const users = loadUsers();
-            if (users.find(u => u.username === newUsername)) {
-                alert('User já existe, espertinho!');
+            const vendor = document.getElementById('vendor').value;
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+            if (!vendor || !rating || !comment) {
+                showToast('Preenche tudo, seu zé!');
                 return;
             }
-            users.push({ username: newUsername, password: newPassword, role: 'user' });
-            saveUsers(users);
-            alert('User adicionado! Agora define a role no painel.');
-            loadUserList();
-            document.getElementById('new-username').value = '';
-            document.getElementById('new-password').value = '';
-        }
+            feedbacks.push({ vendor, rating, comment, user: currentUser.username });
+            saveFeedbacks();
+            loadFeedbacks();
+            showToast('Feedback enviado! Valeu, chefia!');
+            document.getElementById('vendor').value = '';
+            document.getElementById('rating').value = '1';
+            document.getElementById('comment').value = '';
+        });
 
-        // Carrega Lista de Users pro Admin
-        function loadUserList() {
-            const users = loadUsers();
-            const list = document.getElementById('user-list');
-            list.innerHTML = '';
-            users.forEach((user, index) => {
-                if (user.username !== ADMIN_CREDENTIALS.username) { // Não edita o admin
-                    const div = document.createElement('div');
-                    div.className = 'user-item';
-                    div.innerHTML = `
-                        <span>${user.username} (Atual: ${user.role})</span>
-                        <select class="role-select" onchange="updateRole(${index}, this.value)">
-                            <option value="user">User</option>
-                            <option value="vendedor">Vendedor</option>
-                        </select>
-                    `;
-                    list.appendChild(div);
-                }
-            });
-        }
-
-        // Atualiza Role de User
-        function updateRole(index, role) {
-            const users = loadUsers();
-            users[index].role = role;
-            saveUsers(users);
-            alert(`Role de ${users[index].username} mudada pra ${role}!`);
-        }
-
-        // Logout
-        function logout() {
-            currentUser = null;
-            updateNav();
-            showSection('login');
-            document.getElementById('welcome').classList.add('hidden');
-        }
-
-        // Atualiza Nav baseado no login
-        function updateNav() {
-            const adminBtn = document.getElementById('admin-btn');
-            const logoutBtn = document.getElementById('logout-btn');
-            if (currentUser) {
-                adminBtn.classList.toggle('hidden', currentUser.username !== ADMIN_CREDENTIALS.username);
-                logoutBtn.classList.remove('hidden');
-            } else {
-                adminBtn.classList.add('hidden');
-                logoutBtn.classList.add('hidden');
-            }
-        }
-
-        // Mostra Seções
-        function showSection(section) {
-            const sections = ['home-section', 'login-section', 'admin-section'];
-            sections.forEach(s => document.getElementById(s).classList.add('hidden'));
-            document.getElementById(section + '-section').classList.remove('hidden');
-            if (section === 'admin' && currentUser.username !== ADMIN_CREDENTIALS.username) {
-                alert('Só admin entra aqui, otário!');
-                showSection('home');
-            }
-        }
-
-        // Init
-        updateNav();
-        showSection('home');
-    </script>
-</body>
-</html>
+        // Orçamento
+        document.querySelector('.quote-form').addEventListener('submit', e => {
+            e.preventDefault();
+            show
