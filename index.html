@@ -190,30 +190,6 @@
         .toast.show {
             opacity: 1;
         }
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .loader {
-            border: 6px solid #ff1a1a;
-            border-top: 6px solid #00b3b3;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1.2s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         .hidden {
             display: none;
         }
@@ -227,9 +203,6 @@
 </head>
 <body>
     <div class="no-js">Você precisa ativar o JavaScript pra usar a RLKKK STORE, irmão!</div>
-    <div class="loading" id="loading">
-        <div class="loader"></div>
-    </div>
     <header>
         <h1>🔥 RLKKK STORE 🔥</h1>
     </header>
@@ -246,7 +219,7 @@
         <div id="home-section">
             <div class="about">
                 <h2>Sobre a RLKKK STORE</h2>
-                <p>A RLKKK STORE é o point underground pra quem quer design, programação e edição de vídeo que fura o teto. Criamos logos que hipnotizam, sites que parecem do futuro e vídeos que explodem na sua audiência. Somos o time que transforma sua ideia em algo épico, com uma pegada dark e sem frescuras. Desde 2025, dominamos o digital com serviços premium. Cola com a gente!</p>
+                <p>A RLKKK STORE é o antro definitivo pra design, programação e edição de vídeo. Criamos logos que explodem a cabeça, sites que parecem vindos de 2050 e vídeos que vão fazer sua audiência pirar. Somos um time de artistas e coders com uma pegada underground, entregando serviços premium desde 2025. Cola com a gente e transforma sua ideia em algo épico!</p>
             </div>
             <div class="contact">
                 <h3>Contato</h3>
@@ -338,34 +311,22 @@
 
     <div id="toast" class="toast"></div>
 
-    <!-- Simulação de users.json -->
-    <script type="application/json" id="users-json">
-        [
-            { "username": "admin", "password": "admin123", "role": "admin" }
-        ]
-    </script>
-
     <script>
         // Inicializa users e feedbacks
-        let users = [];
+        let users = JSON.parse(localStorage.getItem('rlkkkUsers')) || [
+            { username: 'admin', password: 'admin123', role: 'admin' }
+        ];
         let feedbacks = JSON.parse(localStorage.getItem('rlkkkFeedbacks')) || [];
         let currentUser = null;
         const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
-        // Carrega users com fallback
-        try {
-            users = JSON.parse(document.getElementById('users-json').textContent);
-        } catch (e) {
-            console.error('Erro ao carregar users.json:', e);
-            users = [ADMIN_CREDENTIALS]; // Fallback
-        }
+        // Esconde aviso de JS
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('loading').classList.add('hidden');
+            document.querySelector('.no-js').classList.add('hidden');
             updateNav();
             showSection('home');
             loadVendors();
             loadFeedbacks();
-            document.querySelector('.no-js').classList.add('hidden');
         });
 
         // Toast
