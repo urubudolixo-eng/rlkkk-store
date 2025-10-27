@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RLKKK STORE - Loja Dark de Elite</title>
+    <style>
+        /* Tema Dark Mode Completo */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #333;
+        }
+        h1 {
+            color: #ff6b6b;
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        nav {
+            background-color: #2d2d2d;
+            padding: 10px;
+            text-align: center;
+        }
+        nav button {
+            background-color: #ff6b6b;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        nav button:hover {
+            background-color: #ff5252;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        .about {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .about p {
+            font-size: 1.2em;
+            color: #b0b0b0;
+        }
+        .contact {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .contact a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+        #login-form, #admin-panel {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6b6b;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #ff5252;
+        }
+        .user-list {
+            margin-top: 20px;
+        }
+        .user-item {
+            background-color: #2d2d2d;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .role-select {
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+        #welcome {
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔥 RLKKK STORE 🔥</h1>
+    </header>
+    <nav>
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('login')">Login</button>
+        <button id="admin-btn" onclick="showSection('admin')" class="hidden">Admin Panel</button>
+        <button id="logout-btn" onclick="logout()" class="hidden">Logout</button>
+    </nav>
+
+    <div class="container">
+        <!-- Seção Home -->
+        <div id="home-section">
+            <div class="about">
+                <h2>Sobre a RLKKK STORE</h2>
+                <p>Bem-vindo ao submundo da RLKKK STORE, a loja dark onde você encontra itens exclusivos pra quem curte o lado sombrio do game. De skins raras de Rocket League a mods insanos e acessórios pra elevar seu setup. Somos a elite das apostas e trades — sem frescuras, só grana e adrenalina. Junte-se à nós e domine o servidor.</p>
+            </div>
+            <div class="contact">
+                <h3>Contato</h3>
+                <p>Email: <a href="mailto:urubudolixo@gmail.com">urubudolixo@gmail.com</a></p>
+                <p>Discord: <a href="https://discord.gg/7jcSDnpjkB" target="_blank">Junte-se ao nosso servidor!</a></p>
+            </div>
+        </div>
+
+        <!-- Form de Login -->
+        <div id="login-section" class="hidden">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p id="welcome" class="hidden"></p>
+        </div>
+
+        <!-- Painel Admin -->
+        <div id="admin-section" class="hidden">
+            <h2>Painel Admin - Gerencie Vendedores</h2>
+            <p>Adicione um novo usuário ou defina roles (user/vendedor).</p>
+            <input type="text" id="new-username" placeholder="Novo Username">
+            <input type="password" id="new-password" placeholder="Senha pro Novo User">
+            <button onclick="addUser()">Adicionar Usuário</button>
+            <div class="user-list" id="user-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Armazenamento de Contas (localStorage)
+        let currentUser = null;
+        const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' }; // Muda isso na real!
+
+        // Carrega users do localStorage
+        function loadUsers() {
+            const users = localStorage.getItem('rlkkkUsers');
+            return users ? JSON.parse(users) : [ADMIN_CREDENTIALS]; // Admin default
+        }
+
+        // Salva users no localStorage
+        function saveUsers(users) {
+            localStorage.setItem('rlkkkUsers', JSON.stringify(users));
+        }
+
+        // Login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const users = loadUsers();
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                currentUser = user;
+                document.getElementById('welcome').textContent = `Bem-vindo, ${username}! Role: ${user.role || 'user'}`;
+                document.getElementById('welcome').classList.remove('hidden');
+                showSection('home');
+                updateNav();
+                if (user.username === ADMIN_CREDENTIALS.username) {
+                    loadUserList();
+                }
+            } else {
+                alert('Username ou senha errados, porra! Tenta de novo.');
+            }
+        });
+
+        // Adicionar Novo Usuário (só admin)
+        function addUser() {
+            const newUsername = document.getElementById('new-username').value;
+            const newPassword = document.getElementById('new-password').value;
+            if (!newUsername || !newPassword) {
+                alert('Preenche essa merda direito!');
+                return;
+            }
+            const users = loadUsers();
+            if (users.find(u => u.username === newUsername)) {
+                alert('User já existe, espertinho!');
+                return;
+            }
+            users.push({ username: newUsername, password: newPassword, role: 'user' });
+            saveUsers(users);
+            alert('User adicionado! Agora define a role no painel.');
+            loadUserList();
+            document.getElementById('new-username').value = '';
+            document.getElementById('new-password').value = '';
+        }
+
+        // Carrega Lista de Users pro Admin
+        function loadUserList() {
+            const users = loadUsers();
+            const list = document.getElementById('user-list');
+            list.innerHTML = '';
+            users.forEach((user, index) => {
+                if (user.username !== ADMIN_CREDENTIALS.username) { // Não edita o admin
+                    const div = document.createElement('div');
+                    div.className = 'user-item';
+                    div.innerHTML = `
+                        <span>${user.username} (Atual: ${user.role})</span>
+                        <select class="role-select" onchange="updateRole(${index}, this.value)">
+                            <option value="user">User</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                    `;
+                    list.appendChild(div);
+                }
+            });
+        }
+
+        // Atualiza Role de User
+        function updateRole(index, role) {
+            const users = loadUsers();
+            users[index].role = role;
+            saveUsers(users);
+            alert(`Role de ${users[index].username} mudada pra ${role}!`);
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            updateNav();
+            showSection('login');
+            document.getElementById('welcome').classList.add('hidden');
+        }
+
+        // Atualiza Nav baseado no login
+        function updateNav() {
+            const adminBtn = document.getElementById('admin-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            if (currentUser) {
+                adminBtn.classList.toggle('hidden', currentUser.username !== ADMIN_CREDENTIALS.username);
+                logoutBtn.classList.remove('hidden');
+            } else {
+                adminBtn.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        // Mostra Seções
+        function showSection(section) {
+            const sections = ['home-section', 'login-section', 'admin-section'];
+            sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById(section + '-section').classList.remove('hidden');
+            if (section === 'admin' && currentUser.username !== ADMIN_CREDENTIALS.username) {
+                alert('Só admin entra aqui, otário!');
+                showSection('home');
+            }
+        }
+
+        // Init
+        updateNav();
+        showSection('home');
+    </script>
+</body>
+</html>
