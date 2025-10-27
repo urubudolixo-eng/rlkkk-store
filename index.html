@@ -16,6 +16,13 @@
             color: #e0e0e0;
             overflow-x: hidden;
         }
+        .no-js {
+            background: #ff1a1a;
+            color: #000;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
         header {
             background: #111;
             padding: 20px;
@@ -219,6 +226,7 @@
     </style>
 </head>
 <body>
+    <div class="no-js">Você precisa ativar o JavaScript pra usar a RLKKK STORE, irmão!</div>
     <div class="loading" id="loading">
         <div class="loader"></div>
     </div>
@@ -238,7 +246,7 @@
         <div id="home-section">
             <div class="about">
                 <h2>Sobre a RLKKK STORE</h2>
-                <p>Seja bem-vindo à RLKKK STORE, o antro mais foda de design, programação e edição de vídeo. Criamos logos que explodem cabeças, sites que parecem saídos do futuro e vídeos que vão fazer seu público pirar. Somos especialistas em transformar ideias em obras-primas digitais. No mercado desde 2025, nossa equipe de designers, programadores e editores entrega serviços premium com uma pegada underground. Entre no jogo e deixe sua marca!</p>
+                <p>A RLKKK STORE é o point underground pra quem quer design, programação e edição de vídeo que fura o teto. Criamos logos que hipnotizam, sites que parecem do futuro e vídeos que explodem na sua audiência. Somos o time que transforma sua ideia em algo épico, com uma pegada dark e sem frescuras. Desde 2025, dominamos o digital com serviços premium. Cola com a gente!</p>
             </div>
             <div class="contact">
                 <h3>Contato</h3>
@@ -250,19 +258,19 @@
                 <div class="portfolio-grid">
                     <div class="portfolio-card">
                         <img src="https://via.placeholder.com/300x200?text=Logo+Dark" alt="Logo Design">
-                        <h3>Logo Cyberpunk</h3>
-                        <p>Design de logo para startups tech.</p>
+                        <h3>Logo Neon Cyber</h3>
+                        <p>Identidade visual pra marcas tech.</p>
                         <a href="#">Ver Projeto</a>
                     </div>
                     <div class="portfolio-card">
                         <img src="https://via.placeholder.com/300x200?text=Site+Pro" alt="Website">
-                        <h3>Site Interativo</h3>
-                        <p>Web app com UX/UI de ponta.</p>
+                        <h3>Web App Dinâmico</h3>
+                        <p>Site com UX/UI de outro mundo.</p>
                         <a href="#">Ver Projeto</a>
                     </div>
                     <div class="portfolio-card">
                         <img src="https://via.placeholder.com/300x200?text=Video+Edit" alt="Video Edit">
-                        <h3>Edição de Vídeo</h3>
+                        <h3>Edição de Vídeo Épica</h3>
                         <p>Vídeo promocional com efeitos insanos.</p>
                         <a href="#">Ver Projeto</a>
                     </div>
@@ -338,14 +346,27 @@
     </script>
 
     <script>
-        // Carrega users e feedbacks
-        let users = JSON.parse(document.getElementById('users-json').textContent);
+        // Inicializa users e feedbacks
+        let users = [];
         let feedbacks = JSON.parse(localStorage.getItem('rlkkkFeedbacks')) || [];
         let currentUser = null;
         const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
-        // Loading
-        window.onload = () => setTimeout(() => document.getElementById('loading').classList.add('hidden'), 2000);
+        // Carrega users com fallback
+        try {
+            users = JSON.parse(document.getElementById('users-json').textContent);
+        } catch (e) {
+            console.error('Erro ao carregar users.json:', e);
+            users = [ADMIN_CREDENTIALS]; // Fallback
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('loading').classList.add('hidden');
+            updateNav();
+            showSection('home');
+            loadVendors();
+            loadFeedbacks();
+            document.querySelector('.no-js').classList.add('hidden');
+        });
 
         // Toast
         function showToast(message) {
@@ -408,9 +429,9 @@
                 updateNav();
                 loadVendors();
                 loadFeedbacks();
-                showToast(`Logado como ${username}! Prontos pra dominar!`);
+                showToast(`Logado como ${username}! Bora dominar!`);
             } else {
-                showToast('Username ou senha errados, caralho!');
+                showToast('Username ou senha errados, porra!');
             }
         });
 
@@ -418,7 +439,7 @@
         document.querySelector('.feedback-form').addEventListener('submit', e => {
             e.preventDefault();
             if (!currentUser) {
-                showToast('Loga primeiro, porra!');
+                showToast('Loga primeiro, caralho!');
                 return;
             }
             const vendor = document.getElementById('vendor').value;
@@ -440,4 +461,95 @@
         // Orçamento
         document.querySelector('.quote-form').addEventListener('submit', e => {
             e.preventDefault();
-            show
+            showToast('Orçamento enviado! Te chamamos no Discord ou email.');
+            e.target.reset();
+        });
+
+        // Adicionar Usuário
+        function addUser() {
+            const newUsername = document.getElementById('new-username').value;
+            const newPassword = document.getElementById('new-password').value;
+            if (!newUsername || !newPassword) {
+                showToast('Preenche essa porra direito!');
+                return;
+            }
+            if (users.find(u => u.username === newUsername)) {
+                showToast('Esse user já existe, espertinho!');
+                return;
+            }
+            users.push({ username: newUsername, password: newPassword, role: 'user' });
+            saveUsers();
+            loadUserList();
+            loadVendors();
+            showToast('Usuário adicionado! Define a role agora.');
+            document.getElementById('new-username').value = '';
+            document.getElementById('new-password').value = '';
+        }
+
+        // Carrega Lista de Usuários
+        function loadUserList() {
+            const list = document.getElementById('user-list');
+            list.innerHTML = '';
+            users.forEach((user, index) => {
+                if (user.username !== ADMIN_CREDENTIALS.username) {
+                    const div = document.createElement('div');
+                    div.className = 'user-item';
+                    div.innerHTML = `
+                        <span>${user.username} (Atual: ${user.role})</span>
+                        <select class="role-select" onchange="updateRole(${index}, this.value)">
+                            <option value="user">User</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                    `;
+                    list.appendChild(div);
+                }
+            });
+        }
+
+        // Atualiza Role
+        function updateRole(index, role) {
+            users[index].role = role;
+            saveUsers();
+            loadVendors();
+            showToast(`Role de ${users[index].username} mudada pra ${role}!`);
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            updateNav();
+            showSection('login');
+            document.getElementById('welcome').classList.add('hidden');
+            showToast('Deslogado! Volta logo, irmão.');
+        }
+
+        // Atualiza Nav
+        function updateNav() {
+            const adminBtn = document.getElementById('admin-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            if (currentUser) {
+                adminBtn.classList.toggle('hidden', currentUser.username !== ADMIN_CREDENTIALS.username);
+                logoutBtn.classList.remove('hidden');
+            } else {
+                adminBtn.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        // Mostra Seções
+        function showSection(section) {
+            const sections = ['home-section', 'login-section', 'feedback-section', 'admin-section'];
+            sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById(section + '-section').classList.remove('hidden');
+            if (section === 'admin' && currentUser?.username !== ADMIN_CREDENTIALS.username) {
+                showToast('Só admin entra aqui, otário!');
+                showSection('home');
+            }
+            if (section === 'feedback' && !currentUser) {
+                showToast('Loga primeiro pra dar feedback!');
+                showSection('login');
+            }
+        }
+    </script>
+</body>
+</html>
